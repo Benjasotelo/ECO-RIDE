@@ -1,0 +1,27 @@
+package com.ecoride.ms_perfiles.model;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import java.time.LocalDate;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name = "perfiles")
+public class Perfil {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false)
+    private Long usuarioId; // Relación lógica con ms-usuarios
+
+    private String nombre;
+    private String apellido;
+    private String telefono;
+    private String numeroLicencia; // Vital para conductores
+    private LocalDate fechaNacimiento;
+}
