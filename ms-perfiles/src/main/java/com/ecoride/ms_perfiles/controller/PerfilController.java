@@ -1,6 +1,5 @@
 package com.ecoride.ms_perfiles.controller;
 
-import com.ecoride.ms_perfiles.dto.PerfilRequestDTO;
 import com.ecoride.ms_perfiles.dto.PerfilResponseDTO;
 import com.ecoride.ms_perfiles.model.Perfil;
 import com.ecoride.ms_perfiles.service.PerfilService;
@@ -14,12 +13,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 @Tag(name = "Perfiles", description = "Operaciones relacionadas con perfiles de usuario")
 @RestController
 @RequestMapping("/api/perfiles")
 @RequiredArgsConstructor
 public class PerfilController {
 
+    private final PerfilService perfilService;
     @Operation(summary = "Listar todos los perfiles")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Lista obtenida correctamente")
@@ -48,13 +49,6 @@ public class PerfilController {
     })
     @PostMapping
     public ResponseEntity<PerfilResponseDTO> crear(@RequestBody Perfil perfil) {
-        return ResponseEntity.ok(perfilService.guardar(perfil));
-    }
-}
-
-    @PostMapping
-    public ResponseEntity<PerfilResponseDTO> crear(@RequestBody Perfil perfil) {
-        // Nota: Aquí podrías usar PerfilRequestDTO si prefieres separar la entrada
         return ResponseEntity.ok(perfilService.guardar(perfil));
     }
 }
