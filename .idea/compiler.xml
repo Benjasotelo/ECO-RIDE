@@ -3,28 +3,28 @@
   <component name="CompilerConfiguration">
     <annotationProcessing>
       <profile default="true" name="Default" enabled="true" />
-      <profile name="Annotation profile for ms-viaje" enabled="true">
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="ms-calificaciones" />
+        <module name="ms-precio" />
+        <module name="ms-pago" />
+        <module name="ms-perfiles" />
+        <module name="ms-vehiculo" />
+      </profile>
+      <profile name="Annotation profile for ms-precio" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.46/lombok-1.18.46.jar" />
         </processorPath>
-        <module name="ms-viaje" />
-        <module name="ms-notificaciones" />
-        <module name="ms-precio" />
         <module name="ms-usuario" />
         <module name="ms-mantenimiento" />
+        <module name="ms-viaje" />
+        <module name="ms-notificaciones" />
         <module name="ms-geolocalizacion" />
-      </profile>
-      <profile name="Maven default annotation processors profile" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <module name="ms-calificaciones" />
-        <module name="ms-pago" />
-        <module name="ms-perfiles" />
-        <module name="ms-vehiculo" />
       </profile>
     </annotationProcessing>
   </component>
