@@ -13,6 +13,7 @@
         <module name="ms-notificaciones" />
         <module name="ms-precio" />
         <module name="ms-mantenimiento" />
+        <module name="ms-geolocalizacion" />
         <module name="ms-vehiculo" />
       </profile>
       <profile name="Annotation profile for ms-mantenimiento" enabled="true">
@@ -24,7 +25,6 @@
         </processorPath>
         <module name="ms-usuario" />
         <module name="ms-viaje" />
-        <module name="ms-geolocalizacion" />
       </profile>
     </annotationProcessing>
   </component>
