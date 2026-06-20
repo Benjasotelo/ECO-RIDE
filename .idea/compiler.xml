@@ -11,6 +11,7 @@
         <module name="ms-pago" />
         <module name="ms-perfiles" />
         <module name="ms-notificaciones" />
+        <module name="ms-viaje" />
         <module name="ms-precio" />
         <module name="ms-mantenimiento" />
         <module name="ms-geolocalizacion" />
@@ -24,7 +25,6 @@
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.46/lombok-1.18.46.jar" />
         </processorPath>
         <module name="ms-usuario" />
-        <module name="ms-viaje" />
       </profile>
     </annotationProcessing>
   </component>
