@@ -5,7 +5,9 @@ import com.ecoride.ms_vehiculo.dto.VehiculoResponseDTO;
 import com.ecoride.ms_vehiculo.model.Vehiculo;
 import com.ecoride.ms_vehiculo.repository.VehiculoRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,6 +22,12 @@ public class VehiculoService {
         return vehiculoRepository.findByEstado("DISPONIBLE").stream()
                 .map(this::mapToDTO)
                 .collect(Collectors.toList());
+    }
+
+    public VehiculoResponseDTO obtenerPorId(Long id) {
+        Vehiculo vehiculo = vehiculoRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Vehículo no encontrado"));
+        return mapToDTO(vehiculo);
     }
 
     public VehiculoResponseDTO registrar(VehiculoRequestDTO request) {
