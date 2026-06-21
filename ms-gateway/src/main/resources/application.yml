@@ -13,7 +13,10 @@ spring:
           predicates:
             - Path=/api/v1/usuarios/**
           filters:
-            - RewritePath=/api/v1/usuarios/(?<segment>.*), /api/usuarios/$\{segment}
+            - name: RewritePath
+              args:
+                regexp: /api/v1/usuarios/(?<segment>.*)
+                replacement: /api/usuarios/${segment}
 
         # 2. Perfiles
         - id: ms-perfiles
@@ -21,7 +24,10 @@ spring:
           predicates:
             - Path=/api/v1/perfiles/**
           filters:
-            - RewritePath=/api/v1/perfiles/(?<segment>.*), /api/perfiles/$\{segment}
+            - name: RewritePath
+              args:
+                regexp: /api/v1/perfiles/(?<segment>.*)
+                replacement: /api/perfiles/${segment}
 
         # 3. Vehículos
         - id: ms-vehiculos
@@ -29,7 +35,10 @@ spring:
           predicates:
             - Path=/api/v1/vehiculos/**
           filters:
-            - RewritePath=/api/v1/vehiculos/(?<segment>.*), /api/vehiculos/$\{segment}
+            - name: RewritePath
+              args:
+                regexp: /api/v1/vehiculos/(?<segment>.*)
+                replacement: /api/vehiculos/${segment}
 
         # 4. Geolocalización
         - id: ms-geolocalizacion
@@ -37,7 +46,10 @@ spring:
           predicates:
             - Path=/api/v1/geolocalizacion/**
           filters:
-            - RewritePath=/api/v1/geolocalizacion/(?<segment>.*), /api/geolocalizacion/$\{segment}
+            - name: RewritePath
+              args:
+                regexp: /api/v1/geolocalizacion/(?<segment>.*)
+                replacement: /api/geolocalizacion/${segment}
 
         # 5. Viajes
         - id: ms-viajes
@@ -45,7 +57,10 @@ spring:
           predicates:
             - Path=/api/v1/viajes/**
           filters:
-            - RewritePath=/api/v1/viajes/(?<segment>.*), /api/viajes/$\{segment}
+            - name: RewritePath
+              args:
+                regexp: /api/v1/viajes/(?<segment>.*)
+                replacement: /api/viajes/${segment}
 
         # 6. Precio
         - id: ms-precio
@@ -53,7 +68,10 @@ spring:
           predicates:
             - Path=/api/v1/precios/**
           filters:
-            - RewritePath=/api/v1/precios/(?<segment>.*), /api/precios/$\{segment}
+            - name: RewritePath
+              args:
+                regexp: /api/v1/precios/(?<segment>.*)
+                replacement: /api/precios/${segment}
 
         # 7. Pago
         - id: ms-pago
@@ -61,7 +79,10 @@ spring:
           predicates:
             - Path=/api/v1/pagos/**
           filters:
-            - RewritePath=/api/v1/pagos/(?<segment>.*), /api/pagos/$\{segment}
+            - name: RewritePath
+              args:
+                regexp: /api/v1/pagos/(?<segment>.*)
+                replacement: /api/pagos/${segment}
 
         # 8. Notificaciones
         - id: ms-notificaciones
@@ -69,7 +90,10 @@ spring:
           predicates:
             - Path=/api/v1/notificaciones/**
           filters:
-            - RewritePath=/api/v1/notificaciones/(?<segment>.*), /api/notificaciones/$\{segment}
+            - name: RewritePath
+              args:
+                regexp: /api/v1/notificaciones/(?<segment>.*)
+                replacement: /api/notificaciones/${segment}
 
         # 9. Calificaciones
         - id: ms-calificaciones
@@ -77,7 +101,10 @@ spring:
           predicates:
             - Path=/api/v1/calificaciones/**
           filters:
-            - RewritePath=/api/v1/calificaciones/(?<segment>.*), /api/calificaciones/$\{segment}
+            - name: RewritePath
+              args:
+                regexp: /api/v1/calificaciones/(?<segment>.*)
+                replacement: /api/calificaciones/${segment}
 
         # 10. Mantenimiento
         - id: ms-mantenimiento
@@ -85,9 +112,18 @@ spring:
           predicates:
             - Path=/api/v1/mantenimiento/**
           filters:
-            - RewritePath=/api/v1/mantenimiento/(?<segment>.*), /api/mantenimiento/$\{segment}
+            - name: RewritePath
+              args:
+                regexp: /api/v1/mantenimiento/(?<segment>.*)
+                replacement: /api/mantenimiento/${segment}
 
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka/
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    org.springframework.web.reactive: DEBUG
+    reactor.netty: DEBUG
