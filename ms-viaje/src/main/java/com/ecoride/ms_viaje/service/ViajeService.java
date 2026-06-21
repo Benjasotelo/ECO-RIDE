@@ -64,9 +64,8 @@ public class ViajeService {
                 .id(viaje.getId())
                 .origen(viaje.getOrigen())
                 .destino(viaje.getDestino())
-                .costoTotal(viaje.getCostoTotal())
                 .estado(viaje.getEstado())
-                .fechaInicio(viaje.getFechaInicio())
+
                 .build();
     }
 }

@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 
 @Tag(name = "Vehículos", description = "Operaciones relacionadas con vehículos")
 @RestController
-@RequestMapping("/api/vehiculos")
+@RequestMapping("/api/v1/vehiculos")
 @RequiredArgsConstructor
 public class VehiculoController {
 

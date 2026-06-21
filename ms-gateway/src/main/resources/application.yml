@@ -12,11 +12,6 @@ spring:
           uri: lb://MS-USUARIO
           predicates:
             - Path=/api/v1/usuarios/**
-          filters:
-            - name: RewritePath
-              args:
-                regexp: /api/v1/usuarios/(?<segment>.*)
-                replacement: /api/usuarios/${segment}
 
         # 2. Perfiles
         - id: ms-perfiles
@@ -34,22 +29,17 @@ spring:
           uri: lb://MS-VEHICULOS
           predicates:
             - Path=/api/v1/vehiculos/**
-          filters:
-            - name: RewritePath
-              args:
-                regexp: /api/v1/vehiculos/(?<segment>.*)
-                replacement: /api/vehiculos/${segment}
 
         # 4. Geolocalización
         - id: ms-geolocalizacion
           uri: lb://MS-GEOLOCALIZACION
           predicates:
-            - Path=/api/v1/geolocalizacion/**
+            - Path=/api/v1/ubicaciones/**
           filters:
             - name: RewritePath
               args:
-                regexp: /api/v1/geolocalizacion/(?<segment>.*)
-                replacement: /api/geolocalizacion/${segment}
+                regexp: /api/v1/ubicaciones/(?<segment>.*)
+                replacement: /api/ubicaciones/${segment}
 
         # 5. Viajes
         - id: ms-viajes
@@ -64,7 +54,7 @@ spring:
 
         # 6. Precio
         - id: ms-precio
-          uri: lb://MS-PRECIO
+          uri: http://localhost:8086
           predicates:
             - Path=/api/v1/precios/**
           filters:
@@ -72,7 +62,6 @@ spring:
               args:
                 regexp: /api/v1/precios/(?<segment>.*)
                 replacement: /api/precios/${segment}
-
         # 7. Pago
         - id: ms-pago
           uri: lb://MS-PAGO
@@ -110,12 +99,12 @@ spring:
         - id: ms-mantenimiento
           uri: lb://MS-MANTENIMIENTO
           predicates:
-            - Path=/api/v1/mantenimiento/**
+            - Path=/api/v1/mantenimientos/**
           filters:
             - name: RewritePath
               args:
-                regexp: /api/v1/mantenimiento/(?<segment>.*)
-                replacement: /api/mantenimiento/${segment}
+                regexp: /api/v1/mantenimientos/(?<segment>.*)
+                replacement: /api/mantenimientos/${segment}
 
 eureka:
   client:

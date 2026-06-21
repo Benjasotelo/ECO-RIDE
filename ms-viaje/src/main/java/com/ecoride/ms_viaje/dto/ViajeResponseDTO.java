@@ -1,34 +1,18 @@
 package com.ecoride.ms_viaje.dto;
 
-import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import java.time.LocalDateTime;
+import org.springframework.hateoas.RepresentationModel;
+import lombok.*;
 
-@Schema(description = "Respuesta con datos del viaje")
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ViajeResponseDTO {
-
-    @Schema(description = "ID del viaje", example = "1")
+public class ViajeResponseDTO extends RepresentationModel<ViajeResponseDTO> {
     private Long id;
-
-    @Schema(description = "Dirección de origen", example = "Av. Providencia 123")
+    private Long pasajeroId;
+    private Long conductorId;
     private String origen;
-
-    @Schema(description = "Dirección de destino", example = "Av. Apoquindo 456")
     private String destino;
-
-    @Schema(description = "Costo total del viaje", example = "8500.0")
-    private Double costoTotal;
-
-    @Schema(description = "Estado del viaje", example = "EN_CURSO")
     private String estado;
-
-    @Schema(description = "Fecha y hora de inicio", example = "2024-01-15T10:30:00")
-    private LocalDateTime fechaInicio;
 }

@@ -17,7 +17,7 @@ public class PerfilService {
 
     public List<PerfilResponseDTO> listarTodos() {
         return perfilRepository.findAll().stream()
-                .map(this::mapToDTO) // Aquí se usa el método de abajo
+                .map(this::mapToDTO)
                 .collect(Collectors.toList());
     }
 
@@ -32,12 +32,15 @@ public class PerfilService {
         return mapToDTO(nuevoPerfil);
     }
 
-
     private PerfilResponseDTO mapToDTO(Perfil perfil) {
+        String nombre = perfil.getNombre() != null ? perfil.getNombre() : "";
+        String apellido = perfil.getApellido() != null ? perfil.getApellido() : "";
+        String nombreCompleto = (nombre + " " + apellido).trim();
+
         return PerfilResponseDTO.builder()
                 .id(perfil.getId())
                 .usuarioId(perfil.getUsuarioId())
-                .nombreCompleto(perfil.getNombre() + " " + perfil.getApellido())
+                .nombreCompleto(nombreCompleto.isEmpty() ? "Sin Nombre" : nombreCompleto)
                 .telefono(perfil.getTelefono())
                 .numeroLicencia(perfil.getNumeroLicencia())
                 .fechaNacimiento(perfil.getFechaNacimiento())

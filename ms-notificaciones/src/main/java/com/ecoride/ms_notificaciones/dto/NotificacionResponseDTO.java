@@ -4,15 +4,18 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.springframework.hateoas.RepresentationModel;
 import java.time.LocalDateTime;
 
 @Schema(description = "Respuesta con datos de la notificación")
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class NotificacionResponseDTO {
+public class NotificacionResponseDTO extends RepresentationModel<NotificacionResponseDTO> {
 
     @Schema(description = "ID de la notificación", example = "1")
     private Long id;

@@ -1,4 +1,4 @@
-package com.ecoride.ms_perfiles.assembler;
+/*package com.ecoride.ms_perfiles.assembler;
 
 import com.ecoride.ms_perfiles.controller.PerfilController;
 import com.ecoride.ms_perfiles.dto.PerfilResponseDTO;
@@ -17,4 +17,4 @@ public class PerfilModelAssembler implements RepresentationModelAssembler<Perfil
         perfil.add(linkTo(methodOn(PerfilController.class).listar()).withRel("perfiles"));
         return perfil;
     }
-}
+}*/

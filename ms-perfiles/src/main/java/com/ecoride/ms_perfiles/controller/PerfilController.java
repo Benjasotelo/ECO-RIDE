@@ -1,6 +1,5 @@
 package com.ecoride.ms_perfiles.controller;
 
-import com.ecoride.ms_perfiles.assembler.PerfilModelAssembler;
 import com.ecoride.ms_perfiles.dto.PerfilResponseDTO;
 import com.ecoride.ms_perfiles.model.Perfil;
 import com.ecoride.ms_perfiles.service.PerfilService;
@@ -15,7 +14,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Tag(name = "Perfiles", description = "Operaciones relacionadas con perfiles de usuario")
 @RestController
@@ -24,7 +25,6 @@ import java.util.stream.Collectors;
 public class PerfilController {
 
     private final PerfilService perfilService;
-    private final PerfilModelAssembler assembler;
 
     @Operation(summary = "Listar todos los perfiles")
     @ApiResponses(value = {
@@ -32,10 +32,10 @@ public class PerfilController {
     })
     @GetMapping
     public ResponseEntity<CollectionModel<PerfilResponseDTO>> listar() {
-        List<PerfilResponseDTO> perfiles = perfilService.listarTodos().stream()
-                .map(assembler::toModel)
-                .collect(Collectors.toList());
-        return ResponseEntity.ok(CollectionModel.of(perfiles));
+        List<PerfilResponseDTO> perfiles = perfilService.listarTodos();
+        CollectionModel<PerfilResponseDTO> model = CollectionModel.of(perfiles);
+        model.add(linkTo(methodOn(PerfilController.class).listar()).withSelfRel());
+        return ResponseEntity.ok(model);
     }
 
     @Operation(summary = "Obtener perfil por ID de usuario")
@@ -48,7 +48,8 @@ public class PerfilController {
             @Parameter(description = "ID del usuario", required = true, example = "1")
             @PathVariable Long usuarioId) {
         PerfilResponseDTO perfil = perfilService.obtenerPorUsuarioId(usuarioId);
-        return ResponseEntity.ok(assembler.toModel(perfil));
+        perfil.add(linkTo(methodOn(PerfilController.class).obtenerPorUsuario(usuarioId)).withSelfRel());
+        return ResponseEntity.ok(perfil);
     }
 
     @Operation(summary = "Crear un nuevo perfil")
@@ -59,6 +60,7 @@ public class PerfilController {
     @PostMapping
     public ResponseEntity<PerfilResponseDTO> crear(@RequestBody Perfil perfil) {
         PerfilResponseDTO creado = perfilService.guardar(perfil);
-        return ResponseEntity.ok(assembler.toModel(creado));
+        creado.add(linkTo(methodOn(PerfilController.class).obtenerPorUsuario(creado.getUsuarioId())).withSelfRel());
+        return ResponseEntity.ok(creado);
     }
 }

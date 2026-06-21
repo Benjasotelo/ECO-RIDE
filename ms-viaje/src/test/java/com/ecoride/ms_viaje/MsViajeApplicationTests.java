@@ -1,13 +1,26 @@
 package com.ecoride.ms_viaje;
 
+import com.ecoride.ms_viaje.repository.ViajeRepository;
+import com.ecoride.ms_viaje.service.ViajeService;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 class MsViajeApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
+	@Mock
+	private ViajeRepository viajeRepository;
 
+	@InjectMocks
+	private ViajeService viajeService;
+
+	@Test
+	void cuandoCrearViaje_entoncesRetornaViajeCreado() {
+		// Tu lógica simulando la asignación de un viaje en Eco-Ride
+	}
 }

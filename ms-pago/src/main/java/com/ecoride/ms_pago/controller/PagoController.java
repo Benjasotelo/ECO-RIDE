@@ -6,6 +6,8 @@ import com.ecoride.ms_pago.service.PagoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -14,6 +16,10 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 import java.util.List;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 @Tag(name = "Pagos", description = "Operaciones relacionadas con pagos")
 @RestController
 @RequestMapping("/api/pagos")
@@ -28,10 +34,20 @@ public class PagoController {
             @ApiResponse(responseCode = "404", description = "Usuario no encontrado")
     })
     @GetMapping("/usuario/{usuarioId}")
-    public ResponseEntity<List<PagoResponseDTO>> obtenerHistorial(
+    public ResponseEntity<CollectionModel<PagoResponseDTO>> obtenerHistorial(
             @Parameter(description = "ID del usuario", required = true, example = "1")
             @PathVariable Long usuarioId) {
-        return ResponseEntity.ok(pagoService.listarPorUsuario(usuarioId));
+
+        // 1. Obtenemos la lista de pagos desde el servicio
+        List<PagoResponseDTO> pagos = pagoService.listarPorUsuario(usuarioId);
+
+        // 2. Envolvemos la lista en el contenedor CollectionModel de HATEOAS
+        CollectionModel<PagoResponseDTO> model = CollectionModel.of(pagos);
+
+        // 3. Le agregamos el enlace dinámico que apunta a este mismo endpoint (self)
+        model.add(linkTo(methodOn(PagoController.class).obtenerHistorial(usuarioId)).withSelfRel());
+
+        return ResponseEntity.ok(model);
     }
 
     @Operation(summary = "Registrar un nuevo pago")
