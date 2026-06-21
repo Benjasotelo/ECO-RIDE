@@ -14,10 +14,12 @@
         <option value="$PROJECT_DIR$/ms-notificaciones/pom.xml" />
         <option value="$PROJECT_DIR$/ms-calificaciones/pom.xml" />
         <option value="$PROJECT_DIR$/ms-mantenimiento/pom.xml" />
+        <option value="$PROJECT_DIR$/eureka-server/pom.xml" />
+        <option value="$PROJECT_DIR$/ms-gateway/pom.xml" />
       </list>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_26" project-jdk-name="25" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_26" project-jdk-name="openjdk-26" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>

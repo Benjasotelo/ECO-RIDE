@@ -14,8 +14,10 @@
         <module name="ms-viaje" />
         <module name="ms-precio" />
         <module name="ms-mantenimiento" />
+        <module name="eureka-server" />
         <module name="ms-geolocalizacion" />
         <module name="ms-vehiculo" />
+        <module name="ms-gateway" />
       </profile>
       <profile name="Annotation profile for ms-usuario" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
@@ -30,7 +32,9 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="eureka-server" options="-parameters" />
       <module name="ms-calificaciones" options="-parameters" />
+      <module name="ms-gateway" options="-parameters" />
       <module name="ms-geolocalizacion" options="-parameters" />
       <module name="ms-mantenimiento" options="-parameters" />
       <module name="ms-notificaciones" options="-parameters" />

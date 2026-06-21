@@ -1,0 +1,73 @@
+server:
+  port: 8080 # La puerta única de entrada a todo Eco-Ride
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        # 1. Usuarios
+        - id: ms-usuario
+          uri: lb://MS-USUARIO
+          predicates:
+            - Path=/api/v1/usuarios/**
+
+        # 2. Perfiles
+        - id: ms-perfiles
+          uri: lb://MS-PERFILES
+          predicates:
+            - Path=/api/v1/perfiles/**
+
+        # 3. Vehículos
+        - id: ms-vehiculos
+          uri: lb://MS-VEHICULOS
+          predicates:
+            - Path=/api/v1/vehiculos/**
+
+        # 4. Geolocalización
+        - id: ms-geolocalizacion
+          uri: lb://MS-GEOLOCALIZACION
+          predicates:
+            - Path=/api/v1/geolocalizacion/**
+
+        # 5. Viajes
+        - id: ms-viajes
+          uri: lb://MS-VIAJES
+          predicates:
+            - Path=/api/v1/viajes/**
+
+        # 6. Precio
+        - id: ms-precio
+          uri: lb://MS-PRECIO
+          predicates:
+            - Path=/api/v1/precios/**
+
+        # 7. Pago
+        - id: ms-pago
+          uri: lb://MS-PAGO
+          predicates:
+            - Path=/api/v1/pagos/**
+
+        # 8. Notificaciones
+        - id: ms-notificaciones
+          uri: lb://MS-NOTIFICACIONES
+          predicates:
+            - Path=/api/v1/notificaciones/**
+
+        # 9. Calificaciones
+        - id: ms-calificaciones
+          uri: lb://MS-CALIFICACIONES
+          predicates:
+            - Path=/api/v1/calificaciones/**
+
+        # 10. Mantenimiento
+        - id: ms-mantenimiento
+          uri: lb://MS-MANTENIMIENTO
+          predicates:
+            - Path=/api/v1/mantenimiento/**
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
