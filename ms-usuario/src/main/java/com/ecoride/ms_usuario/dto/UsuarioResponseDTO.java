@@ -4,14 +4,17 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.springframework.hateoas.RepresentationModel;
 
 @Schema(description = "Respuesta con datos del usuario")
 @Data
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UsuarioResponseDTO {
+public class UsuarioResponseDTO extends RepresentationModel<UsuarioResponseDTO> {
 
     @Schema(description = "ID del usuario", example = "1")
     private Long id;

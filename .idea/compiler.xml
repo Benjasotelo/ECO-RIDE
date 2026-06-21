@@ -14,19 +14,11 @@
         <module name="ms-viaje" />
         <module name="ms-precio" />
         <module name="ms-mantenimiento" />
+        <module name="ms-usuario" />
         <module name="eureka-server" />
         <module name="ms-geolocalizacion" />
         <module name="ms-vehiculo" />
         <module name="ms-gateway" />
-      </profile>
-      <profile name="Annotation profile for ms-usuario" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="false">
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.46/lombok-1.18.46.jar" />
-        </processorPath>
-        <module name="ms-usuario" />
       </profile>
     </annotationProcessing>
   </component>
