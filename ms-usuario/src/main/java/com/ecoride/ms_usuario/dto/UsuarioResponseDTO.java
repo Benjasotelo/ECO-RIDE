@@ -1,6 +1,6 @@
 package com.ecoride.ms_usuario.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties; // <-- Importante para proteger a Jackson
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,8 +11,8 @@ import org.springframework.hateoas.RepresentationModel;
 
 @Schema(description = "Respuesta con datos del usuario")
 @Data
-@EqualsAndHashCode(callSuper = true) // 1. CAMBIADO A TRUE: Para que Lombok asimile los links de HATEOAS
-@JsonIgnoreProperties(ignoreUnknown = true) // 2. AGREGADO: Evita que el serializador JSON explote con propiedades heredadas vacías
+@EqualsAndHashCode(callSuper = true)
+@JsonIgnoreProperties(ignoreUnknown = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder

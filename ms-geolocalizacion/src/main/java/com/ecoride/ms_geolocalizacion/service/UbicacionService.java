@@ -15,7 +15,6 @@ public class UbicacionService {
     private final UbicacionRepository ubicacionRepository;
 
     public UbicacionResponseDTO actualizarUbicacion(UbicacionRequestDTO request) {
-        // Si ya existe ubicación para ese vehículo, la actualizamos; si no, creamos una nueva
         Ubicacion ubicacion = ubicacionRepository.findByVehiculoId(request.getVehiculoId())
                 .orElse(new Ubicacion());
 

@@ -21,7 +21,7 @@ public class Viaje {
     @NotNull(message = "El ID del pasajero es obligatorio")
     private Long pasajeroId;
 
-    private Long conductorId; // Puede ser nulo al inicio hasta que alguien acepte
+    private Long conductorId;
 
     @NotBlank(message = "El origen es obligatorio")
     private String origen;

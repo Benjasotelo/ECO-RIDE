@@ -25,7 +25,7 @@ public class Usuario {
     private String contrasena;
 
     @Column(nullable = false)
-    private String rol; // ADMIN, CONDUCTOR, PASAJERO
+    private String rol;
 
     private Boolean activo;
 }

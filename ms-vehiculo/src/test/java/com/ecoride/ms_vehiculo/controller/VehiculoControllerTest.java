@@ -52,6 +52,5 @@ public class VehiculoControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.vehiculoResponseDTOList[0].placa").value("ABC123"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$._embedded.vehiculoResponseDTOList[0].tipo").value("AUTO"));
-                //.andExpect(MockMvcResultMatchers.jsonPath("$._links.self.href").exists());
     }
 }

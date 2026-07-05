@@ -15,5 +15,5 @@ public class PagoRequestDTO {
     private Double monto;
 
     @NotNull(message = "El método de pago es obligatorio")
-    private String metodoPago; // DEBITO, CREDITO, etc.
+    private String metodoPago;
 }

@@ -28,5 +28,5 @@ public class Mantenimiento {
     private LocalDateTime fechaEntrada;
     private LocalDateTime fechaSalida;
 
-    private String estado; // EN_REPARACION, COMPLETADO, CANCELADO
+    private String estado;
 }

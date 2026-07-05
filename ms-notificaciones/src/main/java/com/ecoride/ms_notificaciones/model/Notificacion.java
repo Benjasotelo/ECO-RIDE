@@ -24,7 +24,7 @@ public class Notificacion {
     @NotBlank(message = "El mensaje no puede estar vacío")
     private String mensaje;
 
-    private String tipo; // CORREO, SMS, PUSH
-    private String estado; // ENVIADO, FALLIDO
+    private String tipo;
+    private String estado;
     private LocalDateTime fechaEnvio;
 }

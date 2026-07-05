@@ -10,12 +10,12 @@ import org.springframework.hateoas.RepresentationModel;
 import java.time.LocalDateTime;
 
 @Data
-@EqualsAndHashCode(callSuper = false) //
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Schema(description = "Respuesta con datos del pago")
-public class PagoResponseDTO extends RepresentationModel<PagoResponseDTO> { // <-- Heredamos del modelo
+public class PagoResponseDTO extends RepresentationModel<PagoResponseDTO> {
 
     @Schema(description = "ID del pago", example = "1")
     private Long id;

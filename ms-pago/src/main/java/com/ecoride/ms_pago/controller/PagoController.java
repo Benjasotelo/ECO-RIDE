@@ -38,13 +38,10 @@ public class PagoController {
             @Parameter(description = "ID del usuario", required = true, example = "1")
             @PathVariable Long usuarioId) {
 
-        // 1. Obtenemos la lista de pagos desde el servicio
         List<PagoResponseDTO> pagos = pagoService.listarPorUsuario(usuarioId);
 
-        // 2. Envolvemos la lista en el contenedor CollectionModel de HATEOAS
         CollectionModel<PagoResponseDTO> model = CollectionModel.of(pagos);
 
-        // 3. Le agregamos el enlace dinámico que apunta a este mismo endpoint (self)
         model.add(linkTo(methodOn(PagoController.class).obtenerHistorial(usuarioId)).withSelfRel());
 
         return ResponseEntity.ok(model);

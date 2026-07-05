@@ -21,7 +21,6 @@ public class DataInitializer {
             if (repository.count() == 0) {
                 repository.save(new Viaje(null, 1L, null, "Plaza de Armas", "Costanera Center", 5.5, 2750.0, "SOLICITADO", LocalDateTime.now(), "AUTO"));
 
-                // Usamos log.info con el formato correcto
                 log.info("Microservicio Viajes: Datos de prueba inicializados correctamente.");
             } else {
                 log.info("Microservicio Viajes: La base de datos ya contiene registros.");

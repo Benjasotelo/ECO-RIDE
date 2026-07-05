@@ -1,0 +1,391 @@
+services:
+
+  eureka-server:
+    build: ./eureka-server
+    container_name: eureka-server
+    ports:
+      - "8761:8761"
+    networks:
+      - ecoride-net
+
+  ms-gateway:
+    build: ./ms-gateway
+    container_name: ms-gateway
+    ports:
+      - "8091:8091"
+    environment:
+      EUREKA_URI: http://eureka-server:8761/eureka/
+    depends_on:
+      - eureka-server
+    networks:
+      - ecoride-net
+
+  # ---------- MySQL: un contenedor por microservicio ----------
+
+  mysql-usuario:
+    image: mysql:8.0
+    container_name: mysql-usuario
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: ecoride_usuarios
+    volumes:
+      - mysql_usuario_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - ecoride-net
+
+  mysql-calificaciones:
+    image: mysql:8.0
+    container_name: mysql-calificaciones
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: ecoride_calificaciones
+    volumes:
+      - mysql_calificaciones_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - ecoride-net
+
+  mysql-geolocalizacion:
+    image: mysql:8.0
+    container_name: mysql-geolocalizacion
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: ecoride_geolocalizacion
+    volumes:
+      - mysql_geolocalizacion_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - ecoride-net
+
+  mysql-mantenimiento:
+    image: mysql:8.0
+    container_name: mysql-mantenimiento
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: ecoride_mantenimiento
+    volumes:
+      - mysql_mantenimiento_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - ecoride-net
+
+  mysql-notificaciones:
+    image: mysql:8.0
+    container_name: mysql-notificaciones
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: ecoride_notificaciones
+    volumes:
+      - mysql_notificaciones_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - ecoride-net
+
+  mysql-pago:
+    image: mysql:8.0
+    container_name: mysql-pago
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: ecoride_pagos
+    volumes:
+      - mysql_pago_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - ecoride-net
+
+  mysql-perfiles:
+    image: mysql:8.0
+    container_name: mysql-perfiles
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: ecoride_perfiles
+    volumes:
+      - mysql_perfiles_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - ecoride-net
+
+  mysql-precio:
+    image: mysql:8.0
+    container_name: mysql-precio
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: ecoride_precios
+    volumes:
+      - mysql_precio_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - ecoride-net
+
+  mysql-vehiculo:
+    image: mysql:8.0
+    container_name: mysql-vehiculo
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: ecoride_vehiculos
+    volumes:
+      - mysql_vehiculo_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - ecoride-net
+
+  mysql-viaje:
+    image: mysql:8.0
+    container_name: mysql-viaje
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: ecoride_viajes
+    volumes:
+      - mysql_viaje_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - ecoride-net
+
+  # ---------- Microservicios ----------
+
+  ms-usuario:
+    build: ./ms-usuario
+    container_name: ms-usuario
+    ports:
+      - "8081:8081"
+    environment:
+      DB_HOST: mysql-usuario
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASSWORD: ""
+      EUREKA_URI: http://eureka-server:8761/eureka/
+    depends_on:
+      mysql-usuario:
+        condition: service_healthy
+      eureka-server:
+        condition: service_started
+    networks:
+      - ecoride-net
+
+  ms-calificaciones:
+    build: ./ms-calificaciones
+    container_name: ms-calificaciones
+    ports:
+      - "8089:8089"
+    environment:
+      DB_HOST: mysql-calificaciones
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASSWORD: ""
+      EUREKA_URI: http://eureka-server:8761/eureka/
+    depends_on:
+      mysql-calificaciones:
+        condition: service_healthy
+      eureka-server:
+        condition: service_started
+    networks:
+      - ecoride-net
+
+  ms-geolocalizacion:
+    build: ./ms-geolocalizacion
+    container_name: ms-geolocalizacion
+    ports:
+      - "8084:8084"
+    environment:
+      DB_HOST: mysql-geolocalizacion
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASSWORD: ""
+      EUREKA_URI: http://eureka-server:8761/eureka/
+    depends_on:
+      mysql-geolocalizacion:
+        condition: service_healthy
+      eureka-server:
+        condition: service_started
+    networks:
+      - ecoride-net
+
+  ms-mantenimiento:
+    build: ./ms-mantenimiento
+    container_name: ms-mantenimiento
+    ports:
+      - "8090:8090"
+    environment:
+      DB_HOST: mysql-mantenimiento
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASSWORD: ""
+      EUREKA_URI: http://eureka-server:8761/eureka/
+    depends_on:
+      mysql-mantenimiento:
+        condition: service_healthy
+      eureka-server:
+        condition: service_started
+    networks:
+      - ecoride-net
+
+  ms-notificaciones:
+    build: ./ms-notificaciones
+    container_name: ms-notificaciones
+    ports:
+      - "8088:8088"
+    environment:
+      DB_HOST: mysql-notificaciones
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASSWORD: ""
+      EUREKA_URI: http://eureka-server:8761/eureka/
+    depends_on:
+      mysql-notificaciones:
+        condition: service_healthy
+      eureka-server:
+        condition: service_started
+    networks:
+      - ecoride-net
+
+  ms-pago:
+    build: ./ms-pago
+    container_name: ms-pago
+    ports:
+      - "8087:8087"
+    environment:
+      DB_HOST: mysql-pago
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASSWORD: ""
+      EUREKA_URI: http://eureka-server:8761/eureka/
+    depends_on:
+      mysql-pago:
+        condition: service_healthy
+      eureka-server:
+        condition: service_started
+    networks:
+      - ecoride-net
+
+  ms-perfiles:
+    build: ./ms-perfiles
+    container_name: ms-perfiles
+    ports:
+      - "8082:8082"
+    environment:
+      DB_HOST: mysql-perfiles
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASSWORD: ""
+      EUREKA_URI: http://eureka-server:8761/eureka/
+    depends_on:
+      mysql-perfiles:
+        condition: service_healthy
+      eureka-server:
+        condition: service_started
+    networks:
+      - ecoride-net
+
+  ms-precio:
+    build: ./ms-precio
+    container_name: ms-precio
+    ports:
+      - "8086:8086"
+    environment:
+      DB_HOST: mysql-precio
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASSWORD: ""
+      EUREKA_URI: http://eureka-server:8761/eureka/
+    depends_on:
+      mysql-precio:
+        condition: service_healthy
+      eureka-server:
+        condition: service_started
+    networks:
+      - ecoride-net
+
+  ms-vehiculo:
+    build: ./ms-vehiculo
+    container_name: ms-vehiculo
+    ports:
+      - "8083:8083"
+    environment:
+      DB_HOST: mysql-vehiculo
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASSWORD: ""
+      EUREKA_URI: http://eureka-server:8761/eureka/
+    depends_on:
+      mysql-vehiculo:
+        condition: service_healthy
+      eureka-server:
+        condition: service_started
+    networks:
+      - ecoride-net
+
+  ms-viaje:
+    build: ./ms-viaje
+    container_name: ms-viaje
+    ports:
+      - "8085:8085"
+    environment:
+      DB_HOST: mysql-viaje
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASSWORD: ""
+      EUREKA_URI: http://eureka-server:8761/eureka/
+    depends_on:
+      mysql-viaje:
+        condition: service_healthy
+      eureka-server:
+        condition: service_started
+    networks:
+      - ecoride-net
+
+networks:
+  ecoride-net:
+    driver: bridge
+
+volumes:
+  mysql_usuario_data:
+  mysql_calificaciones_data:
+  mysql_geolocalizacion_data:
+  mysql_mantenimiento_data:
+  mysql_notificaciones_data:
+  mysql_pago_data:
+  mysql_perfiles_data:
+  mysql_precio_data:
+  mysql_vehiculo_data:
+  mysql_viaje_data:

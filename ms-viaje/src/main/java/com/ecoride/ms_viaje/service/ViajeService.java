@@ -7,7 +7,7 @@ import com.ecoride.ms_viaje.dto.ViajeResponseDTO;
 import com.ecoride.ms_viaje.model.Viaje;
 import com.ecoride.ms_viaje.repository.ViajeRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j; // Para los logs
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -25,15 +25,12 @@ public class ViajeService {
     public ViajeResponseDTO crearViaje(ViajeRequestDTO request) {
         log.info("Iniciando creación de viaje para el pasajero ID: {}", request.getPasajeroId());
 
-        // --- COMUNICACIÓN CON MS-VEHICULO ---
-        // Supongamos que el request trae un vehiculoId
         try {
             log.info("Consultando datos del vehículo en ms-vehiculo...");
 
         } catch (Exception e) {
             log.warn("No se pudo verificar el vehículo, pero procedemos con la lógica local: {}", e.getMessage());
         }
-        // ------------------------------------
 
         Viaje viaje = new Viaje();
         viaje.setPasajeroId(request.getPasajeroId());

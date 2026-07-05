@@ -26,20 +26,17 @@ public class PagoService {
 
 
     public PagoResponseDTO registrarPago(PagoRequestDTO request) {
-        // 1. Convertimos RequestDTO -> Entidad (Model)
         Pago pago = new Pago();
         pago.setUsuarioId(request.getUsuarioId());
         pago.setMonto(request.getMonto());
         pago.setMetodoPago(request.getMetodoPago());
 
-        // 2. Agregamos datos que el usuario no envía
         pago.setFecha(LocalDateTime.now());
         pago.setEstado("COMPLETADO");
 
 
         Pago guardado = pagoRepository.save(pago);
 
-        // 4. Devolvemos ResponseDTO
         return mapToDTO(guardado);
     }
 

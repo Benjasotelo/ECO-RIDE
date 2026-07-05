@@ -25,7 +25,7 @@ public class Pago {
     @Positive(message = "El monto debe ser mayor a cero")
     private Double monto;
 
-    private String metodoPago; // Ejemplo: DEBITO, CREDITO, BILLETERA
-    private String estado;     // Ejemplo: COMPLETADO, PENDIENTE
+    private String metodoPago;
+    private String estado;
     private LocalDateTime fecha;
 }

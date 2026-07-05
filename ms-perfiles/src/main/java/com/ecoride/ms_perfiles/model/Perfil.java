@@ -17,11 +17,11 @@ public class Perfil {
     private Long id;
 
     @Column(nullable = false)
-    private Long usuarioId; // Relación lógica con ms-usuarios
+    private Long usuarioId;
 
     private String nombre;
     private String apellido;
     private String telefono;
-    private String numeroLicencia; // Vital para conductores
+    private String numeroLicencia;
     private LocalDate fechaNacimiento;
 }

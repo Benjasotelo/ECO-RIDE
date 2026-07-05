@@ -22,7 +22,7 @@ public class NotificacionService {
         notificacion.setUsuarioId(request.getUsuarioId());
         notificacion.setMensaje(request.getMensaje());
         notificacion.setTipo(request.getTipo() != null ? request.getTipo() : "CORREO");
-        notificacion.setEstado("ENVIADO"); // Simulación de envío
+        notificacion.setEstado("ENVIADO");
         notificacion.setFechaEnvio(LocalDateTime.now());
 
         Notificacion guardada = notificacionRepository.save(notificacion);

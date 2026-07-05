@@ -2,7 +2,7 @@ package com.ecoride.ms_geolocalizacion.config;
 
 import com.ecoride.ms_geolocalizacion.model.Ubicacion;
 import com.ecoride.ms_geolocalizacion.repository.UbicacionRepository;
-import lombok.extern.slf4j.Slf4j; // Import para Slf4j
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

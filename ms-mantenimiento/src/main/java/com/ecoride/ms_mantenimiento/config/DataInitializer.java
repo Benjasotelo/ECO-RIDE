@@ -2,7 +2,7 @@ package com.ecoride.ms_mantenimiento.config;
 
 import com.ecoride.ms_mantenimiento.model.Mantenimiento;
 import com.ecoride.ms_mantenimiento.repository.MantenimientoRepository;
-import lombok.extern.slf4j.Slf4j; // Import para Slf4j
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -11,7 +11,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.CollectionModel;
-import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder; // Importante para el link auto-referenciado
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +19,7 @@ import java.util.List;
 
 @Tag(name = "Usuarios", description = "Operaciones relacionadas con usuarios")
 @RestController
-@RequestMapping("/api/v1/usuarios") // 1. CORREGIDO: Agregamos el /v1 para que calce con el Gateway
+@RequestMapping("/api/v1/usuarios")
 @RequiredArgsConstructor
 public class UsuarioController {
 
@@ -32,13 +32,10 @@ public class UsuarioController {
     })
     @GetMapping
     public ResponseEntity<CollectionModel<UsuarioResponseDTO>> listar() {
-        // 2. CORREGIDO: Obtenemos los DTOs directos del servicio
         List<UsuarioResponseDTO> usuarios = usuarioService.listarTodos();
 
-        // Mapeamos cada uno individualmente a través del assembler para inyectarles sus links /id
         usuarios.forEach(assembler::toModel);
 
-        // Creamos el CollectionModel raíz y le inyectamos el link de este mismo método
         CollectionModel<UsuarioResponseDTO> model = CollectionModel.of(usuarios);
         model.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(UsuarioController.class).listar()).withSelfRel());
 

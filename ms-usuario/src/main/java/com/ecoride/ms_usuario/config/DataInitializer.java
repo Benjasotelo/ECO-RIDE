@@ -2,7 +2,7 @@ package com.ecoride.ms_usuario.config;
 
 import com.ecoride.ms_usuario.model.Usuario;
 import com.ecoride.ms_usuario.repository.UsuarioRepository;
-import lombok.extern.slf4j.Slf4j; // Import para Slf4j
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

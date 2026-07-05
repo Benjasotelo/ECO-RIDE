@@ -26,7 +26,6 @@ class MsUsuarioApplicationTests {
 
 	@Test
 	void cuandoGuardarUsuario_entoncesRetornaUsuarioResponseDTO() {
-		// 1. GIVEN (Preparar los datos de prueba)
 		Usuario usuarioEntrada = new Usuario();
 		usuarioEntrada.setNombreUsuario("vthomas");
 		usuarioEntrada.setCorreoElectronico("victor@ecoride.cl");
@@ -37,27 +36,22 @@ class MsUsuarioApplicationTests {
 		usuarioGuardado.setNombreUsuario("vthomas");
 		usuarioGuardado.setCorreoElectronico("victor@ecoride.cl");
 		usuarioGuardado.setRol("CLIENTE");
-		usuarioGuardado.setActivo(true); // El servicio lo cambia a true
+		usuarioGuardado.setActivo(true);
 
-		// Simulamos el comportamiento del JpaRepository
 		when(usuarioRepository.save(any(Usuario.class))).thenReturn(usuarioGuardado);
 
-		// 2. WHEN (Ejecutar el método real de tu servicio)
 		UsuarioResponseDTO resultado = usuarioService.guardar(usuarioEntrada);
 
-		// 3. THEN (Verificar los resultados esperados)
 		assertNotNull(resultado);
 		assertEquals(1L, resultado.getId());
 		assertEquals("vthomas", resultado.getNombreUsuario());
 		assertTrue(resultado.getActivo());
 
-		// Verificamos que se llamó al repositorio exactamente 1 vez
 		verify(usuarioRepository, times(1)).save(any(Usuario.class));
 	}
 
 	@Test
 	void cuandoObtenerPorIdExistente_entoncesRetornaUsuarioResponseDTO() {
-		// 1. GIVEN
 		Long usuarioId = 1L;
 		Usuario usuarioSimulado = new Usuario();
 		usuarioSimulado.setId(usuarioId);
@@ -68,10 +62,8 @@ class MsUsuarioApplicationTests {
 
 		when(usuarioRepository.findById(usuarioId)).thenReturn(Optional.of(usuarioSimulado));
 
-		// 2. WHEN
 		UsuarioResponseDTO resultado = usuarioService.obtenerPorId(usuarioId);
 
-		// 3. THEN
 		assertNotNull(resultado);
 		assertEquals(usuarioId, resultado.getId());
 		assertEquals("vthomas", resultado.getNombreUsuario());

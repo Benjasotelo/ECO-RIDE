@@ -21,6 +21,5 @@ class MsViajeApplicationTests {
 
 	@Test
 	void cuandoCrearViaje_entoncesRetornaViajeCreado() {
-		// Tu lógica simulando la asignación de un viaje en Eco-Ride
 	}
 }
